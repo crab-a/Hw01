@@ -17,11 +17,11 @@ def mean(values):
 
 def median(values):
     length = len(values)
-    sorted_vals = sorted(values)
+    sorted_values = sorted(values)
     med = 0
     if length % 2:
-        return (sorted_vals[length / 2] + sorted_vals[(length / 2) + 1]) / 2
-    return sorted_vals[ceil(length / 2)]
+        return (sorted_values[length / 2] + sorted_values[(length / 2) + 1]) / 2
+    return sorted_values[ceil(length / 2)]
 
 
 def population_statistics(feature_description, data, treatment, target, threshold, is_above, statistic_functions):
@@ -29,12 +29,14 @@ def population_statistics(feature_description, data, treatment, target, threshol
     :param: feature_description, data, treatment, target, threshold, is_above, statistic_functions
 
     """
-    targeted, have_not = targeting(feature_description, target)  # #neccesarly categorical??
-    population, negative = Data.filter_by_feature(data, target, targeted)
-    treated, _ = targeting(feature_description, treatment)  # #need to see how to deal if more then one number
-# #here i add the modifid version of filter_by_feature with thershold as value and treated param
-    if is_above:
-        pass  # #use it to choose if above or under
+    targeted, have_not = targeting(feature_description, target)
+    population, negative = data.filter_by_feature(data, target, targeted)
+    if have_not:  # #if 'not' the feature send negative of the feature
+        above, below = filter_by_treatment(negative, treatment, threshold)
+    else:
+        above, below = filter_by_treatment(population, treatment, threshold)
+    data = above if is_above else data = below
+
 
 
 def targeting(feature_description, target):
@@ -49,3 +51,25 @@ def targeting(feature_description, target):
         return 1 if "summer" in fds else 3 if "winter" in fds else 2 if "spring" in fds else 0, have_not
     if target == "holiday":
         return True if "holiday" in fds else False, have_not
+
+
+def filter_by_treatment(data, treatment, threshold):
+    data1 = {}
+    data2 = {}
+    for key in data.keys():
+        data1[key] = []
+        data2[key] = []
+    for index, value in enumerate(data[treatment]):
+        if value > threshold:
+            for key in data1.keys():
+                data1[key].append(data[key][index])
+        else:
+            for key in data2.keys():
+                data2[key].append(data[key][index])
+    return data1, data2
+
+
+def get_statistics(data, feature):
+    values = []
+    for value in data[feature]:
+        values.append(data[feature])
