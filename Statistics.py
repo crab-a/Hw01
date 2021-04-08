@@ -1,6 +1,7 @@
 from math import ceil
 import Data
 
+
 def sum(values):
     total = 0
     for num in values:
