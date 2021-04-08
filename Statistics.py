@@ -1,5 +1,4 @@
 from math import ceil
-import Data
 
 
 def sum(values):
@@ -20,8 +19,8 @@ def median(values):
     sorted_values = sorted(values)
     med = 0
     if length % 2:
-        return (sorted_values[length / 2] + sorted_values[(length / 2) + 1]) / 2
-    return sorted_values[ceil(length / 2)]
+        return sorted_values[ceil(length / 2)]
+    return (sorted_values[length / 2] + sorted_values[(length / 2) + 1]) / 2
 
 
 def population_statistics(feature_description, data, treatment, target, threshold, is_above, statistic_functions):
@@ -29,28 +28,9 @@ def population_statistics(feature_description, data, treatment, target, threshol
     :param: feature_description, data, treatment, target, threshold, is_above, statistic_functions
 
     """
-    targeted, have_not = targeting(feature_description, target)
-    population, negative = data.filter_by_feature(data, target, targeted)
-    if have_not:  # #if 'not' the feature send negative of the feature
-        above, below = filter_by_treatment(negative, treatment, threshold)
-    else:
-        above, below = filter_by_treatment(population, treatment, threshold)
-    data = above if is_above else data = below
-
-
-
-def targeting(feature_description, target):
-    """
-    phrase the required target
-    :param: feature_description, target
-    :returns: the value of the target attribute
-    """
-    fds = feature_description.lower()  # #Feature_Description_Simple
-    have_not = True if "not" or "aren't" or "isn't" in fds else have_not = False
-    if target == "season":
-        return 1 if "summer" in fds else 3 if "winter" in fds else 2 if "spring" in fds else 0, have_not
-    if target == "holiday":
-        return True if "holiday" in fds else False, have_not
+    above, below = filter_by_treatment(data, treatment, threshold)
+    data_clean = above if is_above else data_clean = below
+    print_details(feature_description, data_clean, target, statistic_functions)  # #maybe dont need separate func to print maybe send list with one item in feature and print descrption before
 
 
 def filter_by_treatment(data, treatment, threshold):
@@ -69,7 +49,11 @@ def filter_by_treatment(data, treatment, threshold):
     return data1, data2
 
 
-def get_statistics(data, feature):
-    values = []
-    for value in data[feature]:
-        values.append(data[feature])
+def print_details(feature_description, data, target, statistic_functions):
+    print(feature_description + ":", end="")
+    print(target+": ", end="")
+    for func in statistic_functions:
+        if func == statistic_functions[-1]:
+            print(func(data[target]))
+        else:
+            print(func(data[target])+",", end="")
