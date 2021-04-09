@@ -52,4 +52,4 @@ def filter_by_treatment(data, treatment, threshold):
 
 def print_details(feature_description, data, target, statistic_functions):
     print(feature_description + ":", end="")
-    print_data(data, [target], statistic_functions)
+    print_data(data, [target], statistic_functions)  # #maybe need to proprly define target as list before, and not simply [target]
