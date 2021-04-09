@@ -20,7 +20,7 @@ def median(values):
     sorted_values = sorted(values)
     med = 0
     if length % 2:
-        return sorted_values[ceil(length / 2)-1]
+        return sorted_values[int(length / 2)]  # #for not negative numbers works like floor so we can use whatever
     return (sorted_values[length / 2] + sorted_values[(length / 2) + 1]) / 2
 
 
