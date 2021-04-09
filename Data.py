@@ -31,7 +31,7 @@ def print_details(data, features, statistic_functions):
     for feature in features:
         print(feature+": ", end="")
         for func in statistic_functions:
-            if feature == statistic_functions[-1]:  # # זה לא אמור להיות func? כאילו כשהוא מגיע לפונקציה האחרונה לא להדפיס פסיק
+            if func == statistic_functions[-1]:
                 print(func(data[feature]))
             else:
                 print(func(data[feature])+",", end="")
