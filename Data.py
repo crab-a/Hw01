@@ -34,4 +34,4 @@ def print_details(data, features, statistic_functions):
             if func == statistic_functions[-1]:
                 print(func(data[feature]))
             else:
-                print(func(data[feature])+",", end="")
+                print("%f," %func(data[feature]), end="")

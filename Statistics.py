@@ -20,7 +20,7 @@ def median(values):
     sorted_values = sorted(values)
     med = 0
     if length % 2:
-        return sorted_values[ceil(length / 2)]
+        return sorted_values[ceil(length / 2)-1]
     return (sorted_values[length / 2] + sorted_values[(length / 2) + 1]) / 2
 
 
@@ -30,7 +30,7 @@ def population_statistics(feature_description, data, treatment, target, threshol
 
     """
     above, below = filter_by_treatment(data, treatment, threshold)
-    data_clean = above if is_above else data_clean = below
+    data_clean = above if is_above else below
     print_details(feature_description, data_clean, target, statistic_functions)
 
 
@@ -52,4 +52,5 @@ def filter_by_treatment(data, treatment, threshold):
 
 def print_details(feature_description, data, target, statistic_functions):
     print(feature_description + ":", end="")
-    print_data(data, [target], statistic_functions)  # #maybe need to proprly define target as list before, and not simply [target]
+    temp_features = [target]
+    print_data(data, temp_features, statistic_functions)
