@@ -1,4 +1,5 @@
 from math import ceil
+from Data import print_details as print_data
 
 
 def sum(values):
@@ -30,7 +31,7 @@ def population_statistics(feature_description, data, treatment, target, threshol
     """
     above, below = filter_by_treatment(data, treatment, threshold)
     data_clean = above if is_above else data_clean = below
-    print_details(feature_description, data_clean, target, statistic_functions)  # #maybe dont need separate func to print maybe send list with one item in feature and print descrption before
+    print_details(feature_description, data_clean, target, statistic_functions)
 
 
 def filter_by_treatment(data, treatment, threshold):
@@ -51,9 +52,4 @@ def filter_by_treatment(data, treatment, threshold):
 
 def print_details(feature_description, data, target, statistic_functions):
     print(feature_description + ":", end="")
-    print(target+": ", end="")
-    for func in statistic_functions:
-        if func == statistic_functions[-1]:
-            print(func(data[target]))
-        else:
-            print(func(data[target])+",", end="")
+    print_data(data, [target], statistic_functions)
