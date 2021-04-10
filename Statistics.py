@@ -21,7 +21,7 @@ def median(values):
     med = 0
     if length % 2:
         return sorted_values[int(length / 2)]  # #for not negative numbers works like floor so we can use whatever
-    return (sorted_values[length / 2] + sorted_values[(length / 2) + 1]) / 2
+    return (sorted_values[int(length / 2)] + sorted_values[int((length / 2) + 1)]) / 2
 
 
 def population_statistics(feature_description, data, treatment, target, threshold, is_above, statistic_functions):
