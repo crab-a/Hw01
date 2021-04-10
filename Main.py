@@ -5,15 +5,16 @@ import Statistics
 
 def main(argv):
     print("Question 1:")
-    features = ['hum', 't1', 'cnt', 'season', 'is_holiday']
+    features = argv[2].split(', ')
     short_features = features[:3]
     statistic_funcs = [Statistics.sum, Statistics.mean, Statistics.median]
-    data = Data.load_data("london_sample.csv", features)
+    data = Data.load_data(str(argv[1]), features)
     prints_q1('season', 'Summer', short_features, data, statistic_funcs, [1])
     prints_q1('is_holiday', 'Holiday', short_features, data, statistic_funcs, [1])
     print_all(short_features, data, statistic_funcs)
     print("\nQuestion 2:")
-    prints_q2(data, 't1', 13.0, 'cnt', 'Winter', statistic_funcs[1:], [3])
+    season = 'Winter'
+    prints_q2(data, 't1', 13.0, 'cnt', season, statistic_funcs[1:], [determine_season(season)])
 
 
 # def...
@@ -26,6 +27,11 @@ def prints_q1(feature, title, short_features, data, statistic_funcs, values):
 
 
 def prints_q2(data, treatment, threshold, target, description, statistic_funcs, season):
+    """
+    prints statistics about a given season and threshold
+    first print the statistics if above the threshold split by holidays and weekdays
+    then does the same for below the threshold
+    """
     season_only, _ = Data.filter_by_feature(data, 'season', season)
     weekdays, holidays = Data.filter_by_feature(season_only, 'is_holiday', [0])
     print(f'If {treatment}<={threshold}, then:')
@@ -43,6 +49,14 @@ def prints_q2(data, treatment, threshold, target, description, statistic_funcs, 
 def print_all(short_features, data, statistic_funcs):
     print("All:")
     Data.print_details(data, short_features, statistic_funcs)
+
+
+def determine_season(season):
+    """
+    :return the number of the season based on the csv we were given
+    """
+    season = season.lower()
+    return 1 if "summer" in season else 3 if "winter" in season else 2 if "spring" in season else 0
 
 
 if __name__ == '__main__':
