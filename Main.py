@@ -12,7 +12,7 @@ def main(argv):
     prints_q1('season', 'Summer', short_features, data, statistic_funcs, [1])
     prints_q1('is_holiday', 'Holiday', short_features, data, statistic_funcs, [1])
     print_all(short_features, data, statistic_funcs)
-    print("Question 2:")
+    print("\nQuestion 2:")
     prints_q2(data, 't1', 13.0, 'cnt', 'Winter', statistic_funcs[1:], [3])
 
 
@@ -29,14 +29,14 @@ def prints_q2(data, treatment, threshold, target, description, statistic_funcs, 
     season_only, _ = Data.filter_by_feature(data, 'season', season)
     weekdays, holidays = Data.filter_by_feature(season_only, 'is_holiday', [0])
     print(f'If {treatment}<={threshold}, then:')
-    Statistics.population_statistics(description + ' holiday records\n', holidays, treatment, target, threshold, False,
+    Statistics.population_statistics(description + ' holiday records:', holidays, treatment, target, threshold, False,
                                      statistic_funcs)
-    Statistics.population_statistics(description + ' weekday records\n', weekdays, treatment, target, threshold, False,
+    Statistics.population_statistics(description + ' weekday records:', weekdays, treatment, target, threshold, False,
                                      statistic_funcs)
     print(f'If {treatment}>{threshold}, then:')
-    Statistics.population_statistics(description + ' holiday records\n', holidays, treatment, target, threshold, True,
+    Statistics.population_statistics(description + ' holiday records:', holidays, treatment, target, threshold, True,
                                      statistic_funcs)
-    Statistics.population_statistics(description + ' weekday records\n', weekdays, treatment, target, threshold, True,
+    Statistics.population_statistics(description + ' weekday records:', weekdays, treatment, target, threshold, True,
                                      statistic_funcs)
 
 

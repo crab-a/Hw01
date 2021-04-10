@@ -51,6 +51,6 @@ def filter_by_treatment(data, treatment, threshold):
 
 
 def print_details(feature_description, data, target, statistic_functions):
-    print(feature_description + ":", end="")
+    print(feature_description)
     temp_features = [target]
     print_data(data, temp_features, statistic_functions)
