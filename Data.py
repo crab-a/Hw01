@@ -27,11 +27,15 @@ def filter_by_feature(data, feature, values):
             for key in data2.keys():
                 data2[key].append(data[key][index])
     return data1, data2
+
+
 def print_details(data, features, statistic_functions):
     for feature in features:
-        print(feature+": ", end="")
+        print(feature + ": ", end="")
         for func in statistic_functions:
+            formatted_data = "{:.14f}".format(func(data[feature])) if func == "Statistics.mean" else "{:.1f}".format(
+                func(data[feature]))
             if func == statistic_functions[-1]:
                 print(func(data[feature]))
             else:
-                print("%f," %func(data[feature]), end="")
+                print(formatted_data + ",", end="")
