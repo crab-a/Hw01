@@ -5,10 +5,10 @@ import Statistics
 
 def main(argv):
     print("Question 1:")
-    features = ['hum', 't1', 'cnt', 'season', 'is_holiday']
+    features = argv[2].split(', ')
     short_features = features[:3]
     statistic_funcs = [Statistics.sum, Statistics.mean, Statistics.median]
-    data = Data.load_data("london_sample.csv", features)
+    data = Data.load_data(str(argv[1]), features)
     prints_q1('season', 'Summer', short_features, data, statistic_funcs, [1])
     prints_q1('is_holiday', 'Holiday', short_features, data, statistic_funcs, [1])
     print_all(short_features, data, statistic_funcs)
