@@ -33,8 +33,8 @@ def print_details(data, features, statistic_functions):
         print(feature + ": ", end="")
         for func in statistic_functions:
             formatted_data = "{:.14f}".format(func(data[feature])) if 'mean' in str(func) else "{:.1f}".format(
-                func(data[feature]))
+                func(data[feature])) if 'median' in str(func) else "{:.0f}".format(func(data[feature]))
             if func == statistic_functions[-1]:
                 print(func(data[feature]))
             else:
-                print(formatted_data + ",", end="")
+                print(formatted_data + ", ", end="")
