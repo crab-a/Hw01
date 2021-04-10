@@ -1,6 +1,5 @@
 import pandas
 
-
 def load_data(path, features):
     df = pandas.read_csv(path)
     data = df.to_dict(orient="list")
@@ -33,7 +32,7 @@ def print_details(data, features, statistic_functions):
     for feature in features:
         print(feature + ": ", end="")
         for func in statistic_functions:
-            formatted_data = "{:.14f}".format(func(data[feature])) if func == "Statistics.mean" else "{:.1f}".format(
+            formatted_data = "{:.14f}".format(func(data[feature])) if 'mean' in str(func) else "{:.1f}".format(
                 func(data[feature]))
             if func == statistic_functions[-1]:
                 print(func(data[feature]))
