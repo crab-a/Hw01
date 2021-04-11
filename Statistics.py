@@ -4,8 +4,9 @@ from Data import print_details as print_data
 
 def sum(values):
     """
-    :return
-    the sum of iterable
+    calculate the sum of all values in the iterable 'values'
+    :param values: iterable containing numbers(int/float/double)
+    :return: the sum
     """
     total = 0
     for num in values:
@@ -15,8 +16,9 @@ def sum(values):
 
 def mean(values):
     """
-    :return
-    the mean of iterable
+    calculate the mean of all values in the iterable 'values'
+    :param values: iterable containing numbers(int/float/double)
+    :return: the mean
     """
     total = sum(values)
     length = len(values)
@@ -25,8 +27,9 @@ def mean(values):
 
 def median(values):
     """
-    :return
-    the median of iterable
+    calculate the median of all values in the iterable 'values'
+    :param values: iterable containing numbers(int/float/double)
+    :return: the median
     """
     length = len(values)
     sorted_values = sorted(values)
@@ -39,14 +42,14 @@ def median(values):
 def population_statistics(feature_description, data, treatment, target, threshold, is_above, statistic_functions):
     """
     prints the statistics for given feature(target) with care for given threshold about given feature(treatment)
-    :param:
-    feature_description = description to be displayed,
-    data,
-    treatment = what parameter the threshold refers to
-    target = which feature we look for in the data
-    threshold,
-    is_above = if True the func calculate  above the threshold,
-    statistic_functions = list of functions to be used,
+    :param feature_description: description to be displayed
+    :param data: dictionary we work with
+    :param treatment: what parameter the threshold refers to
+    :param target: which feature we look for in the data
+    :param threshold: the threshold
+    :param is_above: if True the func calculate  above the threshold
+    :param statistic_functions: list of functions to be used
+    :return: void
     """
     above, below = filter_by_treatment(data, treatment, threshold)
     data_clean = above if is_above else below
@@ -56,12 +59,10 @@ def population_statistics(feature_description, data, treatment, target, threshol
 def filter_by_treatment(data, treatment, threshold):
     """
     split the data based on given threshold about a feature(treatment)
-    :param:
-    data,
-    treatment,
-    threshold,
-    :return:
-    two dict: one with all values above the threshold the other with the rest (below and equal)
+    :param data: dictionary we work with
+    :param treatment: what parameter the threshold refers to
+    :param threshold: the threshold
+    :return: two dictionary: the first with all entries surpassing the threshold, the second we all entries equals or below the threshold
     """
     above = {}
     below = {}
@@ -79,7 +80,14 @@ def filter_by_treatment(data, treatment, threshold):
 
 
 def print_details(feature_description, data, target, statistic_functions):
-    """handle printing according to format"""
+    """
+    handle printing according to format
+    :param feature_description: description to be printed
+    :param data: dictionary we work with
+    :param target: the feature we looked the statistics for
+    :param statistic_functions: list of functions to be used
+    :return: void
+    """
     print(feature_description)
     temp_features = [target]
     print_data(data, temp_features, statistic_functions)

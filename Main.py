@@ -13,11 +13,7 @@ def main(argv):
     prints_q1('is_holiday', 'Holiday', short_features, data, statistic_funcs, [1])  # #print data for holidays
     print_all(short_features, data, statistic_funcs)  # #print data of the whole year
     print("\nQuestion 2:")
-    season = 'Winter'
-    prints_q2(data, 't1', 13.0, 'cnt', season, statistic_funcs[1:], [determine_season(season)])
-
-
-
+    prints_q2(data, 't1', 13.0, 'cnt', 'Winter', statistic_funcs[1:])
 
 
 def prints_q1(feature, title, short_features, data, statistic_funcs, values):
@@ -36,13 +32,20 @@ def prints_q1(feature, title, short_features, data, statistic_funcs, values):
     Data.print_details(data1, short_features, statistic_funcs)
 
 
-def prints_q2(data, treatment, threshold, target, description, statistic_funcs, season):
+def prints_q2(data, treatment, threshold, target, description, statistic_funcs):
     """
-    prints statistics about a given season and threshold
-    first print the statistics if above the threshold split by holidays and weekdays
-    then does the same for below the threshold
+    prints statistics for a given season.
+    first print the statistics for all entries above the given threshold split by holidays and weekdays
+    then does the same for all entries below the threshold
+    :param data: dictionary we work with
+    :param treatment: the feature which its value will be evaluated to the threshold
+    :param threshold: the threshold
+    :param target: the feature for which entries will be calculated and printed
+    :param description: declare which season we look for records
+    :param statistic_funcs: list of statistic types to print
+    :return: void
     """
-    season_only, _ = Data.filter_by_feature(data, 'season', season)
+    season_only, _ = Data.filter_by_feature(data, 'season', [determine_season(description)])
     weekdays, holidays = Data.filter_by_feature(season_only, 'is_holiday', [0])
     print(f'If {treatment}<={threshold}, then:')
     Statistics.population_statistics(description + ' holiday records:', holidays, treatment, target, threshold, False,
