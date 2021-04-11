@@ -17,10 +17,20 @@ def main(argv):
     prints_q2(data, 't1', 13.0, 'cnt', season, statistic_funcs[1:], [determine_season(season)])
 
 
-# def...
+
 
 
 def prints_q1(feature, title, short_features, data, statistic_funcs, values):
+    """
+    Prints statistics (in this case- sum, mean, median) for each feature in list for specific value of another feature
+    :param feature: the feature which its value makes the results being printed or not
+    :param title: declare what feature value we depend on
+    :param short_features: list of features to calculate their statistics
+    :param data: the dictionary we work with
+    :param statistic_funcs: list of statistic types to print
+    :param values: the value of 'feature' to make the data being counted or not
+    :return: void
+    """
     data1, data2 = Data.filter_by_feature(data, feature, values)
     print(title + ":")
     Data.print_details(data1, short_features, statistic_funcs)
@@ -47,6 +57,13 @@ def prints_q2(data, treatment, threshold, target, description, statistic_funcs, 
 
 
 def print_all(short_features, data, statistic_funcs):
+    """
+    Prints statistics (in this case- sum, mean, median) for each feature in list for the whole year (doesnt depend on another condition as season or holiday)
+    :param short_features: list of features to calculate their statistics
+    :param data: the dictionary we work with
+    :param statistic_funcs: list of statistic types to print
+    :return: void
+    """
     print("All:")
     Data.print_details(data, short_features, statistic_funcs)
 
