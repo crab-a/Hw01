@@ -5,13 +5,13 @@ import Statistics
 
 def main(argv):
     print("Question 1:")
-    features = argv[2].split(', ')
+    features = argv[2].split(', ')  # #argv[2] = list of features from cmd
     short_features = features[:3]
     statistic_funcs = [Statistics.sum, Statistics.mean, Statistics.median]
-    data = Data.load_data(str(argv[1]), features)
-    prints_q1('season', 'Summer', short_features, data, statistic_funcs, [1])
-    prints_q1('is_holiday', 'Holiday', short_features, data, statistic_funcs, [1])
-    print_all(short_features, data, statistic_funcs)
+    data = Data.load_data(str(argv[1]), features)  # #argv[1]= path to csv
+    prints_q1('season', 'Summer', short_features, data, statistic_funcs, [1])  # #print data for summer
+    prints_q1('is_holiday', 'Holiday', short_features, data, statistic_funcs, [1])  # #print data for holidays
+    print_all(short_features, data, statistic_funcs)  # #print data of the whole year
     print("\nQuestion 2:")
     season = 'Winter'
     prints_q2(data, 't1', 13.0, 'cnt', season, statistic_funcs[1:], [determine_season(season)])
