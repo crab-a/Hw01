@@ -1,19 +1,25 @@
 import sys
 import Data
+from Statistics import population_statistics as pop_stats
 import Statistics
 
 
 def main(argv):
+    """
+    answers questions 1 and 2 using modules Data.py and Statistics.py
+    :param argv: argv[0]=path to main.py  argv[1]=path to csv file  argv[2]=string containing list of features in csv
+    :return: void
+    """
     print("Question 1:")
-    features = argv[2].split(', ')  # #argv[2] = list of features from cmd
+    features = argv[2].split(', ')
     short_features = features[:3]
     statistic_funcs = [Statistics.sum, Statistics.mean, Statistics.median]
-    data = Data.load_data(str(argv[1]), features)  # #argv[1]= path to csv
+    data = Data.load_data(str(argv[1]), features)
     prints_q1('season', 'Summer', short_features, data, statistic_funcs, [1])  # #print data for summer
     prints_q1('is_holiday', 'Holiday', short_features, data, statistic_funcs, [1])  # #print data for holidays
     print_all(short_features, data, statistic_funcs)  # #print data of the whole year
     print("\nQuestion 2:")
-    prints_q2(data, 't1', 13.0, 'cnt', 'Winter', statistic_funcs[1:])
+    prints_q2(data, 't1', 13.0, 'cnt', 'Winter', statistic_funcs[1:])  # #answer question 2
 
 
 def prints_q1(feature, title, short_features, data, statistic_funcs, values):
@@ -48,20 +54,17 @@ def prints_q2(data, treatment, threshold, target, description, statistic_funcs):
     season_only, _ = Data.filter_by_feature(data, 'season', [determine_season(description)])
     weekdays, holidays = Data.filter_by_feature(season_only, 'is_holiday', [0])
     print(f'If {treatment}<={threshold}, then:')
-    Statistics.population_statistics(description + ' holiday records:', holidays, treatment, target, threshold, False,
-                                     statistic_funcs)
-    Statistics.population_statistics(description + ' weekday records:', weekdays, treatment, target, threshold, False,
-                                     statistic_funcs)
+    pop_stats(description + ' holiday records:', holidays, treatment, target, threshold, False, statistic_funcs)
+    pop_stats(description + ' weekday records:', weekdays, treatment, target, threshold, False, statistic_funcs)
     print(f'If {treatment}>{threshold}, then:')
-    Statistics.population_statistics(description + ' holiday records:', holidays, treatment, target, threshold, True,
-                                     statistic_funcs)
-    Statistics.population_statistics(description + ' weekday records:', weekdays, treatment, target, threshold, True,
-                                     statistic_funcs)
+    pop_stats(description + ' holiday records:', holidays, treatment, target, threshold, True, statistic_funcs)
+    pop_stats(description + ' weekday records:', weekdays, treatment, target, threshold, True, statistic_funcs)
 
 
 def print_all(short_features, data, statistic_funcs):
     """
-    Prints statistics (in this case- sum, mean, median) for each feature in list for the whole year (doesnt depend on another condition as season or holiday)
+    Prints statistics (in this case- sum, mean, median) for each feature in list for the whole year
+    (doesnt depend on another condition as season or holiday)
     :param short_features: list of features to calculate their statistics
     :param data: the dictionary we work with
     :param statistic_funcs: list of statistic types to print
@@ -73,7 +76,9 @@ def print_all(short_features, data, statistic_funcs):
 
 def determine_season(season):
     """
-    :return the number of the season based on the csv we were given
+    translate the name of the season to the numeric value it has in the csv
+    :param season: name of the season
+    :return: the number of the season based on the csv we were given
     """
     season = season.lower()
     return 1 if "summer" in season else 3 if "winter" in season else 2 if "spring" in season else 0
